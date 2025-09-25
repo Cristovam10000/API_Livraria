@@ -1,3 +1,4 @@
+import autor from "../models/Autor.js";
 import manga from "../models/Mangas.js";
 
 class MangaController {
@@ -20,17 +21,20 @@ class MangaController {
             res.status(200).json(mangaEncontrado)
 
         }catch (erro) {
-            res.status(500).json({ message: `${erro.message} - falha na requisição do manga` })
+            res.status(500).json({ message: `${erro.message} - falha na requisição do manga` });
         }
         
     }
 
     static async cadastrarManga(req,res) {
+        const novoManga = req.body;
         try {
-            const novoManga = await manga.create(req.body)
-            res.status(201).json({ message: "Criado com sucesso", manga: novoManga })
+            const autorEncontrado = await autor.findById(novoManga.autor);
+            const mangaCompleto = { ...novoManga, autor: { ...autorEncontrado._doc } };
+            const mangaCriado = await manga.create(mangaCompleto)
+            res.status(201).json({ message: "Criado com sucesso", manga: mangaCriado });
          }catch (erro) {
-            res.status(500).json({ message: `${erro.message} - falha ao cadastra livro` })
+            res.status(500).json({ message: `${erro.message} - falha ao cadastra livro` });
         }
         
     }

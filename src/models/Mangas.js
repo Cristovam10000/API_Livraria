@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { autorSchema } from "./Autor.js"
 
 
 const MangaSchema = new mongoose.Schema({
@@ -6,7 +7,8 @@ const MangaSchema = new mongoose.Schema({
     titulo: { type: String, required: true },
     editora: { type: String },
     preço: { type: Number },
-    capitulos: { type: Number }
+    capitulos: { type: Number },
+    autor: autorSchema
 
 }, { versionKey: false });
 

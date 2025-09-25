@@ -17,15 +17,4 @@ routes(app);
 
 
 
-
-
-
-
-app.delete("/mangas/:id", (req, res) => {
-    const index = buscaLivro(req.params.id);
-    manga.splice(index, 1);
-    res.status(200).send("manga deletado")
-})
-
-
 export default app;
