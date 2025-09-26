@@ -63,6 +63,16 @@ class MangaController {
         }
     }
 
+    static async listaMangasPorEditora(req, res) {
+        const editora = req.query.editora;
+        try {
+            const mangasPorEditora = await manga.find({ editora:editora })
+            res.status(200).json(mangasPorEditora)
+        }catch (erro) {
+            res.status(500).json({ message: `${erro.message} - falha na busca` })
+        }
+    }
+
 };
 
 export default MangaController;
